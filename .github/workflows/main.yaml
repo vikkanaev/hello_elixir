@@ -4,8 +4,15 @@ jobs:
   run_tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Elixir action
-      uses: mileschou/elixir-action@master
-      with:
-        args: mix test.ci
+      - name: Git checkout...
+        uses: actions/checkout@v2
+      - name: Prepare Elixir tests
+        uses: mileschou/elixir-action@master
+        with:
+          args: mix local.hex --force
+      - name: Run Elixir tests
+        uses: mileschou/elixir-action@master
+        with:
+          args: mix test.ci
+        env:
+          MIX_ENV: "test"
