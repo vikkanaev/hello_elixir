@@ -3,9 +3,15 @@ on: push
 jobs:
   run_tests:
     runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
     steps:
-    - uses: actions/checkout@v2
-    - name: Elixir action
-      uses: mileschou/elixir-action@master
-      with:
-        args: mix test.ci
+      - name: Git checkout...
+        uses: actions/checkout@v2
+      - name: Setup Elixir and Erlang/OTP
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: '24'
+          elixir-version: '1.12.3'
+      - name: Run Elixir Tests
+        run: mix test.ci
