@@ -13,4 +13,6 @@ jobs:
         with:
           args: mix local.hex --force
       - name: Run Elixir tests
-        run: mix test.ci
+        uses: mileschou/elixir-action@master
+        with:
+          args: mix test.ci
